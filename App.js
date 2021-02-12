@@ -1,21 +1,43 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-
+import api from './api'
 
 function Porte(){
+	const [isLoading, setLoading] = useState(true)
+	const [state, setState] = useState('')
+
+	useEffect(() => {
+
+		api.fakeporte()
+		.then( ({state}) => {
+			console.log("test", state)
+			setState(state)
+		})
+		.catch(console.error)
+		.finally(() => setLoading(false))
+
+	}, []);
+
+
 	return (
 		<View style={styles.container}>
-			<Text>yo je suis la porte</Text>
+			{ isLoading 
+			?
+				<Text>Chargement...</Text>
+			:
+				<Text>La porte est {state}</Text>
+			}
 			<StatusBar style="auto" />
 		</View>
 	)
 }
 
-function Cam(){
+const Cam = () => {
+
 	return (
 		<View style={styles.container}>
 			<Text>yo je suis la camera</Text>
