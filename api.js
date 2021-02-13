@@ -18,11 +18,29 @@ class api {
 		})
 	}
 
-	async fakeporte() {
-		return new Promise(async (resolve, reject) => {
+	/**
+	 * Une fonction de test pour simuler une requette reussi 
+	 * @param {object} data l'object à retourner
+	 * @param {number} timeout temps d'attente
+	 */
+	async fakeAccept(data = null, timeout = 0) {
+		return new Promise(async (resolve, _) => {
 			setTimeout(() => { 
-				resolve({state: 'fermé'});
-			}, 1000)
+				resolve(data);
+			}, timeout)
+		})
+	}
+
+	/**
+	 * Une fonction de test pour simuler une requette echoué 
+	 * @param {object} data l'object à retourner
+	 * @param {number} timeout temps d'attente
+	 */
+	async fakeReject(data = null, timeout = 0) {
+		return new Promise(async (_, reject) => {
+			setTimeout(() => { 
+				resolve(data);
+			}, timeout)
 		})
 	}
 
