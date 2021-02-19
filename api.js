@@ -51,6 +51,10 @@ class api {
 	async setPorte(action) {
 		return this.apiAction('porte', 'post', {action})
 	}
+
+	async getBDD() {
+		return this.apiAction('data', 'get', {action})
+	}
 }
 
 export default new api()
