@@ -5,15 +5,15 @@ class api {
 		this.port = '80' 
 	}
 
-	async apiAction(endpoint = "", data = {}) {
+	async apiAction(endpoint = "", method='get', data = {}) {
 		const {protocol, host, port} = this
 		
 		return fetch(`${protocol}://${host}:${port}/${endpoint}`, {
-			method: 'POST',
+			method,
+			data,
 			headers: {
 				'Accept': 'application/json, text/javascript, */*; q=0.01',
 			},
-			data
 			
 		})
 	}
@@ -39,17 +39,17 @@ class api {
 	async fakeReject(data = null, timeout = 0) {
 		return new Promise(async (_, reject) => {
 			setTimeout(() => { 
-				resolve(data);
+				reject(data);
 			}, timeout)
 		})
 	}
 
 	async getPorte() {
-		return this.apiAction('porte', {})
+		return this.apiAction('porte', 'get', {})
 	}
 
-	async setPorte() {
-		return this.apiAction('porte', {/* #TODO decider de la doc ! */})
+	async setPorte(action) {
+		return this.apiAction('porte', 'post', {action})
 	}
 }
 
