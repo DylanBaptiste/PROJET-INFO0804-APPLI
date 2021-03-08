@@ -1,16 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState, useCallback} from 'react';
-import { Button, Text, View, SafeAreaView, RefreshControl, ScrollView} from 'react-native';
+import React, { useContext, useEffect, useState, useCallback} from 'react';
+import { Linking, Button, Text, View, SafeAreaView, RefreshControl, ScrollView} from 'react-native';
 import 'react-native-gesture-handler';
 import api from './api'
 import styles from './Styles'
 
+  
 export default () => {
-
+	const camUri = "http://c1test.mdr"
 	return (
-		<View style={styles.container}>
-			<Text>Camera</Text>
+		<SafeAreaView  style={styles.container}>
 			<StatusBar style="auto" />
-		</View>
+			<View>
+				<Button title={camUri} onPress={ ()=>{ Linking.openURL(camUri) }} />
+			</View>
+		</SafeAreaView>
 	)
 }
