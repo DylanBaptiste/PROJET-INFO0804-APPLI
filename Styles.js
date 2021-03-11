@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 
+/* ensemble des styles pour les composants */
 
 export default StyleSheet.create({
 	container: {

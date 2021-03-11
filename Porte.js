@@ -6,8 +6,8 @@ import api from './api'
 import styles from './Styles'
 
 export default () => {
-	const [isLoading, setLoading] = useState(true)
-	const [refreshing, setRefreshing] = useState(false)
+	const [isLoading, setLoading] = useState(true) //variable pour savoir si les données sont en train d'etre chargées
+	const [refreshing, setRefreshing] = useState(false) //rafraichissement de la page via un swipe vers le bas
 	const [state, setState] = useState({}) // le state de la porte
 
 	const onRefresh = useCallback(() => {
@@ -18,7 +18,8 @@ export default () => {
 	const loadPorte = () => {
 		setLoading(true)
 		
-		api.fakeAccept({timestamp: "2021-03-10T16:19:54.2568", ouverte: true}, 1000)
+		//api.getporte() // à décommenter pour utiliser la vrai fonction
+		api.fakeAccept({timestamp: "2021-03-10T16:19:54.2568", ouverte: true}, 1000) //On utilise fakeAccept pour la demo 
 			.then( (state) => {
 				setState(state)
 			})
@@ -32,6 +33,7 @@ export default () => {
 	const ouvrir = () => {
 		setLoading(true)
 		
+		//api.ouvrirPorte() // à décommenter pour utiliser la vrai fonction
 		api.fakeAccept({timestamp: new Date(Date.now()).toISOString(), ouverte: true}, 1000)
 			.then( (state) => {
 				setState(state)
@@ -46,6 +48,7 @@ export default () => {
 	const fermer = () => {
 		setLoading(true)
 		
+		//api.fermerPorte() // à décommenter pour utiliser la vrai fonction
 		api.fakeAccept({timestamp: new Date(Date.now()).toISOString(), ouverte: false}, 1000)
 			.then( (state) => {
 				console.log(state)

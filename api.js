@@ -1,8 +1,12 @@
 import React, {useContext} from 'react'
 import { ConfigContext } from "./ConfigProvider";
 
+/**
+ * fonction qui envoie une requete
+ */
 const apiAction = async (endpoint = "", method='get', data = {}) => {
 
+	// Important: le contexte de la configuration qui est partagé via le hooks useContext
 	const {config} = useContext(ConfigContext)
 	const {protocol, host, port} = config
 
@@ -16,6 +20,9 @@ const apiAction = async (endpoint = "", method='get', data = {}) => {
 	})
 }
 
+/**
+ * ensemble des fonctions de l'api
+ */
 const api = {
 	getPorte: async () => {
 		return apiAction('door', 'get', {})

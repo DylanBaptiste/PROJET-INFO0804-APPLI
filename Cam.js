@@ -5,13 +5,10 @@ import 'react-native-gesture-handler';
 import api from './api'
 import styles from './Styles'
 
-import ConfigProvider from './ConfigProvider'
-import { ConfigContext } from "./ConfigProvider";
-
 export default () => {
-	const camUri = "http://poule.hopto.org:8081/"
-	const {config, setConfig} = useContext(ConfigContext)
 
+	//Hardcodé
+	const camUri = "http://poule.hopto.org:8081/"
 
 	return (
 		<SafeAreaView  style={styles.container}>

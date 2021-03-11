@@ -5,6 +5,8 @@ import 'react-native-gesture-handler';
 import api from './api'
 import styles from './Styles'
 
+/* Meme logique que dans ./porte.js */
+
 export default () => {
 
 	const [isLoading, setLoading] = useState(true)
@@ -19,6 +21,7 @@ export default () => {
 	const loadBDD = () => {
 		setLoading(true)
 		
+		/* fausse donné pour demonstartion */
 		api.fakeAccept([
 			{date: "fake date",temperature: 15,humidite: 70,pression: 1000,image: 'base64 ?' },
 			{date: "fake sqdfdate",temperature: 16,humidite: 70,pression: 500, image:'bassdfsdfe64 ?' },

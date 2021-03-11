@@ -1,23 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useContext, useEffect, useState, useCallback} from 'react';
-import {Modal, Pressable,  TextInput , Linking, Button, Text, View, SafeAreaView, RefreshControl, ScrollView} from 'react-native';
+import React, { useContext } from 'react';
+import {TextInput , Text, View, SafeAreaView, } from 'react-native';
 import 'react-native-gesture-handler';
-import api from './api'
 import styles from './Styles'
 
-import ConfigProvider from './ConfigProvider'
 import { ConfigContext } from "./ConfigProvider";
+
+/**
+ * composant qui permet de modifier la configuration qui est paratger à travers toute l'application
+ */
 
 export default () => {
 	
-	const {config, setConfig} = useContext(ConfigContext)
+	const {config, setConfig} = useContext(ConfigContext) // recuperation de la configuration
 
-	const {protocol, host, port} = config
+	const {protocol, host, port} = config // destructuring
 
 	return (
 		<SafeAreaView  style={styles.container}>
 			<StatusBar style="auto" />
-
+			{/* suite de TextInput pour modifier les options de configuration*/}
 			<View>
 				<Text>Parametres</Text>
 				<View>
