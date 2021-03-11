@@ -9,15 +9,15 @@ import ConfigProvider from './ConfigProvider'
 import { ConfigContext } from "./ConfigProvider";
 
 export default () => {
-	const camUri = "http://c1test.mdr"
+	const camUri = "http://poule.hopto.org:8081/"
 	const {config, setConfig} = useContext(ConfigContext)
+
 
 	return (
 		<SafeAreaView  style={styles.container}>
 			<StatusBar style="auto" />
 			<View>
 				<Button title={camUri} onPress={ ()=>{ Linking.openURL(camUri) }} />
-				<Text>L'ip de l'api est {config.api}</Text>
 			</View>
 		</SafeAreaView>
 	)
