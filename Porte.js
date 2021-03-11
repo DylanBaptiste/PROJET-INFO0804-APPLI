@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import { setStatusBarNetworkActivityIndicatorVisible, StatusBar } from 'expo-status-bar';
 import React, { useEffect, useState, useCallback} from 'react';
 import { Button, Text, View, SafeAreaView, RefreshControl, ScrollView} from 'react-native';
 import 'react-native-gesture-handler';
@@ -18,7 +18,7 @@ export default () => {
 	const loadPorte = () => {
 		setLoading(true)
 		
-		api.fakeAccept({state: 'fermé', open: false}, 1000)
+		api.fakeAccept({timestamp: "2021-03-10T16:19:54.2568", ouverte: true}, 1000)
 			.then( (state) => {
 				setState(state)
 			})
@@ -32,7 +32,7 @@ export default () => {
 	const ouvrir = () => {
 		setLoading(true)
 		
-		api.fakeAccept({state: 'ouverte', open: true}, 1000)
+		api.fakeAccept({timestamp: new Date(Date.now()).toISOString(), ouverte: true}, 1000)
 			.then( (state) => {
 				setState(state)
 			})
@@ -46,8 +46,9 @@ export default () => {
 	const fermer = () => {
 		setLoading(true)
 		
-		api.fakeAccept({state: 'fermé', open: false}, 1000)
+		api.fakeAccept({timestamp: new Date(Date.now()).toISOString(), ouverte: false}, 1000)
 			.then( (state) => {
+				console.log(state)
 				setState(state)
 			})
 			.catch(console.error)
@@ -66,6 +67,7 @@ export default () => {
 
 
 	return (
+
 		<SafeAreaView  style={styles.container}>
 			<StatusBar style="auto" />
 
@@ -86,11 +88,14 @@ export default () => {
 					</View>
 				:
 					<View>
-						<Text>La porte est {state.state}</Text>
+						<View>
+							{console.log(state)}
+							<Text>La porte est {state.ouverte ? 'OUVERTE' : 'FERME'} depuis {state.timestamp}</Text>
+						</View>
 						<Button
-							onPress={ ()=>{ state.open ? fermer() : ouvrir() }}
-							title={state.open ? 'FERMER' : 'OUVRIR'}
-							color={state.open ? 'red' : 'green'}
+							onPress={ ()=>{ state.ouverte ? fermer() : ouvrir() }}
+							title={state.ouverte ? 'FERMER' : 'OUVRIR'}
+							color={state.ouverte ? 'red' : 'green'}
 						/>
 						
 					</View>
