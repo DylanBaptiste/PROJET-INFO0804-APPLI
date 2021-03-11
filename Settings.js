@@ -35,10 +35,7 @@ export default () => {
 					<TextInput
 						style={{height: 40}}
 						placeholder="127.0.0.1"
-						onChangeText={host =>{
-							console.log(host)
-							//setConfig({...config, host})
-						}}
+						onChangeText={host => setConfig({...config, host}) }
 						defaultValue={host}
 					/>
 				</View>
@@ -48,10 +45,7 @@ export default () => {
 					<TextInput
 						style={{height: 40}}
 						placeholder="80"
-						onChangeText={port =>{
-							console.log(port)
-							setConfig({...config, port})
-						}}
+						onChangeText={port => setConfig({...config, port})}
 						defaultValue={port}
 					/>
 				</View>
