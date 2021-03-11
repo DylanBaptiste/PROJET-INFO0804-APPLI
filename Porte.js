@@ -90,7 +90,7 @@ export default () => {
 					<View>
 						<View>
 							{console.log(state)}
-							<Text>La porte est {state.ouverte ? 'OUVERTE' : 'FERME'} depuis {state.timestamp}</Text>
+							<Text>La porte est {state.ouverte ? 'OUVERTE' : 'FERMEE'} depuis {state.timestamp}</Text>
 						</View>
 						<Button
 							onPress={ ()=>{ state.ouverte ? fermer() : ouvrir() }}
