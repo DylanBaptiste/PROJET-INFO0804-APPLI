@@ -17,12 +17,32 @@ const apiAction = async (endpoint = "", method='get', data = {}) => {
 }
 
 const api = {
+	getPorte: async () => {
+		return apiAction('door', 'get', {})
+	},
+
+	ouvrirPorte: async () => {
+		return apiAction('porte/open', 'get', {})
+	},
+
+	fermerPorte: async () => {
+		return apiAction('porte/close', 'get', {})
+	},
+
+	getAllBDD: async () => {
+		return apiAction('data', 'get', {})
+	},
+
+	getBDD: async (id) => {
+		return apiAction(`data/${id}`, 'get', {})
+	},
+
 	/**
 	 * Une fonction de test pour simuler une requette reussi 
 	 * @param {object} data l'object à retourner
 	 * @param {number} timeout temps d'attente
 	 */
-	fakeAccept: async (data = null, timeout = 0) => {
+	 fakeAccept: async (data = null, timeout = 0) => {
 		return new Promise(async (resolve, _) => {
 			setTimeout(() => { 
 				resolve(data);
@@ -42,18 +62,6 @@ const api = {
 			}, timeout)
 		})
 	},
-
-	getPorte: async () => {
-		return apiAction('porte', 'get', {})
-	},
-
-	setPorte(action) {
-		return apiAction('porte', 'post', {action})
-	},
-
-	getBDD: async () => {
-		return apiAction('data', 'get', {action})
-	}
 }
 
 export default api

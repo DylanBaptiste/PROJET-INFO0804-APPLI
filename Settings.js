@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext, useEffect, useState, useCallback} from 'react';
-import { TextInput , Linking, Button, Text, View, SafeAreaView, RefreshControl, ScrollView} from 'react-native';
+import {Modal, Pressable,  TextInput , Linking, Button, Text, View, SafeAreaView, RefreshControl, ScrollView} from 'react-native';
 import 'react-native-gesture-handler';
 import api from './api'
 import styles from './Styles'
@@ -17,6 +17,7 @@ export default () => {
 	return (
 		<SafeAreaView  style={styles.container}>
 			<StatusBar style="auto" />
+
 			<View>
 				<Text>Parametres</Text>
 				<View>
@@ -58,6 +59,7 @@ export default () => {
 				
 				
 			</View>
+			
 		</SafeAreaView>
 	)
 }
