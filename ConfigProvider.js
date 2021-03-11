@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, useEffect } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
+import AsyncStorage from '@react-native-community/async-storage';
 
 const defaultConfig = {
 	protocol: "http",
@@ -8,7 +9,27 @@ const defaultConfig = {
 export const ConfigContext = createContext(defaultConfig)
 
 const ConfigProvider = ({children}) => {
-	const [config, setConfig] = useState(defaultConfig)
+	const [config, setConfig] = useState({})
+
+	useEffect(() => {
+		AsyncStorage.getItem('config')
+		.then( res => { 
+			if(res)
+				setConfig(JSON.parse(res))
+			else
+				setConfig(defaultConfig)
+		})
+		.catch(err =>{
+			console.error(err)
+			setConfig(defaultConfig)
+		})
+	}, []);
+
+	useEffect(() => {
+		AsyncStorage.setItem('config', JSON.stringify(config));
+	}, [config])
+
+	
 
 	return (
 		<ConfigContext.Provider value={{config, setConfig}}>

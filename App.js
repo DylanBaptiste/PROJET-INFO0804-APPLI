@@ -14,18 +14,11 @@ import { ConfigContext } from "./ConfigProvider";
 const Tab = createBottomTabNavigator();
 
 
-const Test = () => {
-	const config = useContext(ConfigContext)
-	console.log({...config})
-	return <Text>test {JSON.stringify(config)}</Text>
-}
-
 export default () => {
   return (
 	<ConfigProvider>
 		
 		<NavigationContainer>
-			<View><Test/></View>
 			<Settings/>
 			<Tab.Navigator tabBarOptions={{ activeTintColor: '#e91e63', }}>
 				<Tab.Screen name="Porte" component={Porte} />

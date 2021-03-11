@@ -18,14 +18,45 @@ export default () => {
 		<SafeAreaView  style={styles.container}>
 			<StatusBar style="auto" />
 			<View>
-				<Text>YO je suis les  settings de l'app</Text>
-				<Text>{JSON.stringify(config)}</Text>
-				<TextInput
-					style={{height: 40}}
-					placeholder="Changer le host"
-					onChangeText={host => setConfig({...config, host})}
-					defaultValue={host}
-				/>
+				<Text>Parametres</Text>
+				<View>
+					<Text>Protocol:</Text>
+					<TextInput
+						style={{height: 40}}
+						placeholder="http"
+						onChangeText={protocol => setConfig({...config, protocol})}
+						defaultValue={protocol}
+					/>
+				</View>
+
+				<View>
+					<Text>IP:</Text>
+					<TextInput
+						style={{height: 40}}
+						placeholder="127.0.0.1"
+						onChangeText={host =>{
+							console.log(host)
+							//setConfig({...config, host})
+						}}
+						defaultValue={host}
+					/>
+				</View>
+
+				<View>
+					<Text>Port:</Text>
+					<TextInput
+						style={{height: 40}}
+						placeholder="80"
+						onChangeText={port =>{
+							console.log(port)
+							setConfig({...config, port})
+						}}
+						defaultValue={port}
+					/>
+				</View>
+				
+				
+				
 			</View>
 		</SafeAreaView>
 	)
