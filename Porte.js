@@ -16,27 +16,34 @@ export default () => {
 	const [error, setError] = useState('')
 	
 	const onRefresh = useCallback(() => {
-		setRefreshing(true)
-		loadPorte()
+		if(JSON.stringify(config) !== '{}'){
+			setRefreshing(true)
+			setLoading(true)
+			loadPorte()
+		}
+		
 	}, [])
 
 	const loadPorte = () => {
 		setError('')
 		setLoading(true)
 		
-		
+		console.log("loadPorte", config)
 		useFakeRequest ? 
 			api.fakeAccept({timestamp: "2021-03-10T16:19:54.2568", ouverte: true}, 1000) 
 				.then( (state) => setState(state) ).catch().finally(() =>{ setLoading(false); setRefreshing(false) }) //fakeAccept pour la demo 
 		:
-			api.getPorte({config}).then( (state) => setState(state) ).catch(err => setError(err.toString())).finally(() =>{ setLoading(false); setRefreshing(false) })
+			api.getPorte({config}).then( (state) => setState(state) ).catch(err =>{
+				console.log(err)
+				setError(err.toString())
+			}).finally(() =>{ setLoading(false); setRefreshing(false) })
 	}
 
 	const ouvrir = () => {
 		setLoading(true)
 		
 		useFakeRequest ? 
-			api.fakeAccept({timestamp: new Date(Date.now()).toISOString(), ouverte: false}, 1000) 
+			api.fakeAccept({timestamp: new Date(Date.now()).toISOString(), ouverte: true}, 1000) 
 				.then( (state) => setState(state) ).catch(err => setError(err.toString())).finally(() =>{ setLoading(false); setRefreshing(false) }) //fakeAccept pour la demo 
 		:
 			api.ouvrirPorte({config})
@@ -47,7 +54,7 @@ export default () => {
 		setLoading(true)
 		
 		useFakeRequest ? 
-			api.fakeAccept({timestamp: new Date(Date.now()).toISOString(), ouverte: true}, 1000) 
+			api.fakeAccept({timestamp: new Date(Date.now()).toISOString(), ouverte: false}, 1000) 
 				.then( (state) => setState(state) ).catch(err => setError(err.toString())).finally(() =>{ setLoading(false); setRefreshing(false) }) //fakeAccept pour la demo 
 		:
 			api.fermerPorte({config})
@@ -56,7 +63,11 @@ export default () => {
 
 	// componentDidMount
 	useEffect(() => {
-		loadPorte()
+		if(JSON.stringify(config) !== '{}'){
+			console.log("requete lancé")
+			loadPorte()
+		}
+			
 
 	}, [config]);
 
@@ -79,10 +90,14 @@ export default () => {
 				{ (isLoading || JSON.stringify(state) === '{}')
 				?
 					<View>
-						<Text>Chargement...</Text>
+						{ !!error  && <Text>Verifiez si les informations vers l'API sont bonnes dans les settings</Text> }
+						{ !!error  && <Text style={{color: 'red'}}>{error}</Text> }
+						{ !error   && <Text>Chargement...</Text>}
+						
 					</View>
 				:
 					<View>
+						{console.log(state)}
 						{ !!error  && <Text>Verifiez si les informations vers l'API sont bonnes dans les settings</Text> }
 						{ !!error  && <Text style={{color: 'red'}}>{error}</Text> }
 						{ !error && 

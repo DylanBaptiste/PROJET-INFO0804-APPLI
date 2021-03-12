@@ -2,10 +2,10 @@
  * fonction qui envoie une requete
  */
 const apiAction = (endpoint = "", method='get', data = {}, config = {}) => {
-
+	console.log(config)
 	// Important: le contexte de la configuration qui est partagé via le hooks useContext
 	const {protocol, host, port} = config
-
+	console.log(protocol, host, port)
 	return fetch(`${protocol}://${host}:${port}/${endpoint}`, {
 		method,
 		data,
