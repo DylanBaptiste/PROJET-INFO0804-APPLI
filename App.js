@@ -19,7 +19,6 @@ const Tab = createBottomTabNavigator();
 export default () => {
 	return (
 		<ConfigProvider> {/* L'application est entouré du ConfigProvider pour propager la configuration dans les composant*/}
-			
 			<NavigationContainer>
 				<Tab.Navigator tabBarOptions={{ activeTintColor: '#e91e63', }}>
 					<Tab.Screen name="Porte" component={Porte} />

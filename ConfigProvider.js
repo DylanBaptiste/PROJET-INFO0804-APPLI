@@ -5,7 +5,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 const defaultConfig = {
 	protocol: "http",
 	host: "127.0.0.1",
-	port: "80"
+	port: "80",
+	useFakeRequest: true
 }
 
 // Creation du contexte

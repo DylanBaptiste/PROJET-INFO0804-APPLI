@@ -1,17 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState, useCallback} from 'react';
+import React, { useContext, useEffect, useState, useCallback} from 'react';
 import { FlatList, Button, Text, View, SafeAreaView, RefreshControl, ScrollView} from 'react-native';
 import 'react-native-gesture-handler';
 import api from './api'
 import styles from './Styles'
+import { ConfigContext } from "./ConfigProvider";
 
 /* Meme logique que dans ./porte.js */
 
 export default () => {
-
+	const { config } = useContext(ConfigContext)
+	const { useFakeRequest } = config
 	const [isLoading, setLoading] = useState(true)
 	const [refreshing, setRefreshing] = useState(false)
 	const [data, setData] = useState({})
+	const [error, setError] = useState('')
 
 	const onRefresh = useCallback(() => {
 		setRefreshing(true)
@@ -20,22 +23,14 @@ export default () => {
 
 	const loadBDD = () => {
 		setLoading(true)
-		
-		/* fausse donné pour demonstartion */
-		api.fakeAccept([
-			{date: "fake date",temperature: 15,humidite: 70,pression: 1000,image: 'base64 ?' },
-			{date: "fake sqdfdate",temperature: 16,humidite: 70,pression: 500, image:'bassdfsdfe64 ?' },
-			{date: "fakesdfsd date",temperature: 12,humidite: 70,pression: 900, image:'bassdfsfe64 ?' },
-			{date: "fake dsdfsdfate",temperature: 13,humidite: 70,pression: 1500,image: 'basesdfsdf64 ?'},
-		], 1000)
-			.then( (state) => {
-				setData(state)
-			})
-			.catch(console.error)
-			.finally(() =>{
-				setLoading(false)
-				setRefreshing(false)
-			})
+		setError('')
+
+		useFakeRequest ?
+			/* fausse données pour démonstartion */
+			api.fakeAccept([{date: "fake date", temperature: 15, humidite: 70, pression: 1000, image: 'base64 ?' }, {date: "fake sqdfdate",temperature: 16,humidite: 70,pression: 500, image:'bassdfsdfe64 ?' }], 1000)
+				.then( (state) => setData(state) ).catch(err => setError(err.toString()) ).finally(() =>{ setLoading(false);  setRefreshing(false) })
+		:
+			api.getAllBDD({config}).then( (state) => setData(state) ).catch(err => setError(err.toString()) ).finally(() =>{ setLoading(false);  setRefreshing(false) })
 	}
 
 	// componentDidMount
@@ -43,7 +38,7 @@ export default () => {
 		
 		loadBDD()
 
-	}, []);
+	}, [config]);
 
 	return (
 		<SafeAreaView  style={styles.container}>
@@ -56,20 +51,20 @@ export default () => {
 			
 				{ isLoading 
 				?
-				<View>
-					<Text>BDD</Text>
-				</View>
+					<View>
+						<Text>Chargement...</Text>
+					</View>
 				:
 					<View>
 						<Text>BDD</Text>
-						<FlatList
-							data={data}
-							renderItem={( {item, index} ) => (<Text>{JSON.stringify(item)}</Text>)}
-						/>
-						
+						{ !!error  && <Text>Verifiez si les informations vers l'API sont bonnes dans les settings</Text> }
+						{ !!error  && <Text style={{color: 'red'}}>Erreur:</Text> }
+						{ !!error  && <Text style={{color: 'red'}}>{error}</Text> }
+						{ !error   && <FlatList data={data} renderItem={( {item, index} ) => (<Text>{JSON.stringify(item)}</Text>)} />}
 					</View>
 				}
-				</ScrollView>
+				
+			</ScrollView>
 		</SafeAreaView >
 	)
 }

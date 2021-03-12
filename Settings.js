@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext } from 'react';
-import {TextInput , Text, View, SafeAreaView, } from 'react-native';
+import {TextInput , Text, View, SafeAreaView, Switch } from 'react-native';
 import 'react-native-gesture-handler';
 import styles from './Styles'
 
@@ -14,7 +14,7 @@ export default () => {
 	
 	const {config, setConfig} = useContext(ConfigContext) // recuperation de la configuration
 
-	const {protocol, host, port} = config // destructuring
+	const {protocol, host, port, useFakeRequest} = config // destructuring
 
 	return (
 		<SafeAreaView  style={styles.container}>
@@ -49,6 +49,15 @@ export default () => {
 						placeholder="80"
 						onChangeText={port => setConfig({...config, port})}
 						defaultValue={port}
+					/>
+				</View>
+
+				<View>
+					<Text>use fake requests: Utiliser des fausses requetes (desactiver pour envoyer les requetes vers l'api):</Text>
+					<Switch
+						ios_backgroundColor="#3e3e3e"
+						onValueChange={() => setConfig({...config, useFakeRequest: !useFakeRequest})}
+						value={useFakeRequest}
 					/>
 				</View>
 				

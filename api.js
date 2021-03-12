@@ -1,13 +1,9 @@
-import React, {useContext} from 'react'
-import { ConfigContext } from "./ConfigProvider";
-
 /**
  * fonction qui envoie une requete
  */
-const apiAction = async (endpoint = "", method='get', data = {}) => {
+const apiAction = (endpoint = "", method='get', data = {}, config = {}) => {
 
 	// Important: le contexte de la configuration qui est partagé via le hooks useContext
-	const {config} = useContext(ConfigContext)
 	const {protocol, host, port} = config
 
 	return fetch(`${protocol}://${host}:${port}/${endpoint}`, {
@@ -24,24 +20,24 @@ const apiAction = async (endpoint = "", method='get', data = {}) => {
  * ensemble des fonctions de l'api
  */
 const api = {
-	getPorte: async () => {
-		return apiAction('door', 'get', {})
+	getPorte: async ({config}) => {
+		return apiAction('door', 'get', {}, config)
 	},
 
-	ouvrirPorte: async () => {
-		return apiAction('porte/open', 'get', {})
+	ouvrirPorte: async ({config}) => {
+		return apiAction('porte/open', 'get', {}, config)
 	},
 
-	fermerPorte: async () => {
-		return apiAction('porte/close', 'get', {})
+	fermerPorte: async ({config}) => {
+		return apiAction('porte/close', 'get', {}, config)
 	},
 
-	getAllBDD: async () => {
-		return apiAction('data', 'get', {})
+	getAllBDD: async ({config}) => {
+		return apiAction('data', 'get', {}, config)
 	},
 
-	getBDD: async (id) => {
-		return apiAction(`data/${id}`, 'get', {})
+	getBDD: async ({config, id}) => {
+		return apiAction(`data/${id}`, 'get', {}, config)
 	},
 
 	/**
