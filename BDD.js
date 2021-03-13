@@ -48,7 +48,6 @@ export default () => {
 				contentContainerStyle={styles.scrollView}
 				refreshControl={ <RefreshControl refreshing={refreshing} onRefresh={onRefresh}/> }
 			>
-			
 				{ isLoading 
 				?
 					<View>
@@ -60,7 +59,7 @@ export default () => {
 						{ !!error  && <Text>Verifiez si les informations vers l'API sont bonnes dans les settings</Text> }
 						{ !!error  && <Text style={{color: 'red'}}>Erreur:</Text> }
 						{ !!error  && <Text style={{color: 'red'}}>{error}</Text> }
-						{ !error   && <FlatList data={data} renderItem={( {item, index} ) => (<Text>{JSON.stringify(item)}</Text>)} />}
+						{ !error   && <FlatList data={data} renderItem={( {item, index} ) => (<Text key={index}>{JSON.stringify(item)}</Text>)} />}
 					</View>
 				}
 				
