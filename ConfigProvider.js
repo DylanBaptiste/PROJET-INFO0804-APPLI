@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from 'react'
 import AsyncStorage from '@react-native-community/async-storage';
 
 /* config par defaut */
-const defaultConfig = {
+export const defaultConfig = {
 	protocol: "http",
 	host: "127.0.0.1",
 	port: "80",

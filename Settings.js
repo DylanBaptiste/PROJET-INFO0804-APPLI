@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useContext } from 'react';
-import {TextInput , Text, View, SafeAreaView, Switch } from 'react-native';
+import {TextInput , Text, View, SafeAreaView, Switch, Button } from 'react-native';
 import 'react-native-gesture-handler';
 import styles from './Styles'
 
-import { ConfigContext } from "./ConfigProvider";
+import { ConfigContext, defaultConfig } from "./ConfigProvider";
 
 /**
  * composant qui permet de modifier la configuration qui est paratger à travers toute l'application
@@ -60,7 +60,9 @@ export default () => {
 						value={useFakeRequest}
 					/>
 				</View>
-				
+				<Text>Au cas où il y ai des bugs :</Text>
+				<Button title={"Remettre par dafaut"} onPress={ ()=>{ setConfig({...defaultConfig}) }} />
+
 				
 				
 			</View>
